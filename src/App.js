@@ -4,7 +4,7 @@ import Header from "./components/Header";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import { Routes, Route } from "react-router-dom";
-import Basket from "./pages/Basket";
+import Cart from "./pages/Cart";
 
 export const SearchContext = React.createContext();
 
@@ -20,7 +20,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />}/>
               <Route path="*" element={<NotFound />}/>
-              <Route path="/basket" element={<Basket />}/>
+              <Route path="/basket" element={<Cart />}/>
             </Routes>
           </div>
         </div>

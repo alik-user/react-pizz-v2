@@ -19,8 +19,22 @@ function Sort() {
     {name:'алфавиту ↑',value:'title'},
     {name:'алфавиту ↓',value:'title-'},
   ];
+
+  React.useEffect(() => {
+    const handleClickOutSide = (e) => {
+      if (!e.composedPath().includes(sortRef.current)) {
+      setHidden(false )
+      }
+    }
+    document.addEventListener("click",handleClickOutSide);
+    return () => {
+      document.body.removeEventListener("click",handleClickOutSide)
+    }
+  },[])
+  const sortRef = React.useRef();
+  console.log(sortRef);
   return (
-    <div className="sort">
+    <div ref={sortRef} className="sort">
       <div onClick={() => setHidden(!hidden)} className="sort__label">
         <svg
           className={hidden === false ? "" : "rotate"}

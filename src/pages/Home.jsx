@@ -7,6 +7,7 @@ import Pagination from "../components/Pagination/Pagination";
 import { SearchContext } from "../App";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import { compose } from "@reduxjs/toolkit";
 
 function Home() {
   const categoryIndex = useSelector((state) => state.filterSlice.categoryIndex);
@@ -35,6 +36,8 @@ function Home() {
       
   const items = pizzas.map((item) => <PizzaBlock key={item.id} {...item} />);
   const sceleton = [...new Array(8)].map((_, i) => <Sceleton key={i} />);
+
+  
 
   return (
     <>
