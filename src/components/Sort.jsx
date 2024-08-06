@@ -1,9 +1,9 @@
 import React from "react";
 import { useSelector , useDispatch } from "react-redux";
-import { setSortValue } from "../redux/slices/filterSlice";
+import { setSortValue, sortSelect } from "../redux/slices/filterSlice";
 function Sort() {
 
-  const sortValue = useSelector(state => state.filterSlice.sort)
+  const sortValue = useSelector(sortSelect)
   const dispatch = useDispatch()
 
   const [hidden, setHidden] = React.useState(false);
@@ -32,7 +32,6 @@ function Sort() {
     }
   },[])
   const sortRef = React.useRef();
-  console.log(sortRef);
   return (
     <div ref={sortRef} className="sort">
       <div onClick={() => setHidden(!hidden)} className="sort__label">
