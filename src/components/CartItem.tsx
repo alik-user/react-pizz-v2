@@ -1,17 +1,28 @@
-import { useDispatch, useSelector } from "react-redux";
-import { addItems, minusItems, removeItems } from "../redux/slices/cartSlice";
+import { useDispatch } from "react-redux";
+import { addItems, CartItem, minusItems, removeItems } from "../redux/slices/cartSlice";
+import React from "react";
 
-function CartItem({ id, imageUrl, title, types, sizes, price, count }) {
+type CartItemProps = {
+  id: string;
+  imageUrl: string;
+  title : string;
+  types : string;
+  sizes : string;
+  price : number;
+  count: number;
+}
+
+const CartItemBlock:React.FC<CartItemProps> = ({ id, imageUrl, title, types, sizes, price, count }) => {
   const dispatch = useDispatch();
   const onClickPlus = () => {
-    dispatch(addItems({ id }));
+    dispatch(addItems({ id } as CartItem));
   };
   const onClickMinus = () => {
     dispatch(minusItems(id));
   };
   const remove = () => {
     if (window.confirm('вы действительно хотите удалить эту пиццу ?')) {
-        dispatch(removeItems(id));
+      dispatch(removeItems(id));
     }
   };
   return (
@@ -27,7 +38,7 @@ function CartItem({ id, imageUrl, title, types, sizes, price, count }) {
           </p>
         </div>
         <div className="cart__item-count">
-          <div   onClick={onClickMinus} className="button button--outline button--circle cart__item-count-minus">
+          <div onClick={onClickMinus} className="button button--outline button--circle cart__item-count-minus">
             <svg
               width="10"
               height="10"
@@ -95,4 +106,4 @@ function CartItem({ id, imageUrl, title, types, sizes, price, count }) {
     </>
   );
 }
-export default CartItem;
+export default CartItemBlock;

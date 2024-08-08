@@ -1,6 +1,6 @@
 import logo from '../assets/img/pizza-logo.svg';
 import { Link , useLocation} from 'react-router-dom';
-import Search from '../components/Search/Search';
+import Search from './Search/Search';
 import { useSelector } from 'react-redux';
 import { cartSelector } from '../redux/slices/cartSlice';
 function Header() {

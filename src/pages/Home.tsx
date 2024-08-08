@@ -4,14 +4,15 @@ import Categories from "../components/Categories";
 import PizzaBlock from "../components/PizzaBlock";
 import Sceleton from "../components/Sceleton";
 import Pagination from "../components/Pagination/Pagination";
-import { useSelector ,useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import {  fetchPizzas, pizzaSliceSelector } from "../redux/slices/pizzaSlice";
 import { filterSliceSelect } from "../redux/slices/filterSlice";
+import { UseAppDispatch } from "../redux/store";
 
-function Home() {
+const Home:React.FC = () => {
   const {sort,categoryIndex,currentPage,searchValue} = useSelector(filterSliceSelect);
   const {items,status} = useSelector(pizzaSliceSelector);
-  const dispatch = useDispatch()
+  const dispatch = UseAppDispatch()
 
 
 
@@ -19,7 +20,6 @@ function Home() {
   const sorts = sort.value.replace("-", "");
   const order = sort.value.includes("-") ? "asc" : "desc";
   const search = searchValue ? `${searchValue}` : "";
-
   React.useEffect(() => {
     const getPizza = async () => {
       dispatch(fetchPizzas({
@@ -27,14 +27,14 @@ function Home() {
         sorts,
         order,
         search,
-        currentPage
+        currentPage:String(currentPage)
       }))
       
     };
     getPizza();
   }, [categoryIndex, sort, searchValue, currentPage]);
 
-  const item = items.map((item) => <PizzaBlock key={item.id} {...item} />);
+  const item = items.map((item:any) => <PizzaBlock key={item.id} {...item} />);
   const sceleton = [...new Array(8)].map((_, i) => <Sceleton key={i} />);
 
   return (

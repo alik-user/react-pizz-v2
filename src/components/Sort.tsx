@@ -1,37 +1,39 @@
 import React from "react";
-import { useSelector , useDispatch } from "react-redux";
-import { setSortValue, sortSelect } from "../redux/slices/filterSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { setSortValue, sortSelect, SortValueEnum } from "../redux/slices/filterSlice";
 function Sort() {
 
   const sortValue = useSelector(sortSelect)
   const dispatch = useDispatch()
 
   const [hidden, setHidden] = React.useState(false);
-  const select = (obj) => {
-      dispatch(setSortValue(obj));
-      setHidden(false)
-  }
-  const sortArr = [
-    {name:'популярности ↑',value:'rating'},
-    {name:'популярности ↓',value:'rating-'},
-    {name:'цене ↑',value:'price'},
-    {name:'цене ↓',value:'price-'},
-    {name:'алфавиту ↑',value:'title'},
-    {name:'алфавиту ↓',value:'title-'},
+  type SortList = { name: string, value: SortValueEnum }
+  const sortArr: SortList[] = [
+    { name: 'популярности ↑', value: SortValueEnum.RATING_DESC },
+    { name: 'популярности ↓', value: SortValueEnum.RATING_ASC },
+    { name: 'цене ↑', value: SortValueEnum.PRICE_DESC },
+    { name: 'цене ↓', value: SortValueEnum.PRICE_ASC },
+    { name: 'алфавиту ↑', value: SortValueEnum.TITLE_DESC },
+    { name: 'алфавиту ↓', value: SortValueEnum.TITLE_ASC  },
   ];
+  const select = (obj: any) => {
+    dispatch(setSortValue(obj));
+    setHidden(false)
+  }
+
 
   React.useEffect(() => {
-    const handleClickOutSide = (e) => {
-      if (!e.composedPath().includes(sortRef.current)) {
-      setHidden(false )
+    const handleClickOutside = (event: MouseEvent) => {
+      if (sortRef.current && !event.composedPath().includes(sortRef.current)) {
+        setHidden(false);
       }
-    }
-    document.addEventListener("click",handleClickOutSide);
-    return () => {
-      document.body.removeEventListener("click",handleClickOutSide)
-    }
-  },[])
-  const sortRef = React.useRef();
+    };
+
+    document.body.addEventListener('click', handleClickOutside);
+
+    return () => document.body.removeEventListener('click', handleClickOutside);
+  }, []);
+  const sortRef = React.useRef<HTMLDivElement>(null);
   return (
     <div ref={sortRef} className="sort">
       <div onClick={() => setHidden(!hidden)} className="sort__label">

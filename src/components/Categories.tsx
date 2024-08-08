@@ -1,18 +1,18 @@
 import React from "react";
-import { useSelector , useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { categoryIndexSelect, setCategoryIndex } from "../redux/slices/filterSlice";
 
-function Categories() {
+const categoriesArr = [
+  "Все",
+  "Мясные",
+  "Вегетерианская",
+  "Гриль",
+  "Острые",
+  "Закрытые",
+];
+const Categories:React.FC = () => {
   const dispatch = useDispatch()
   const categoryIndex = useSelector(categoryIndexSelect)
-  const categoriesArr = [
-    "Все",  
-    "Мясные",  
-    "Вегетерианская",  
-    "Гриль",  
-    "Острые",
-    "Закрытые",
-  ];
   return (
     <div className="categories">
       <ul>
